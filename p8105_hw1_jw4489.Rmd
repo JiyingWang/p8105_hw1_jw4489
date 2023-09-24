@@ -7,3 +7,88 @@ date: "2023-09-23"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+```{r, eval=FALSE}
+install.packages("moderndive")
+```
+
+```{r}
+library(tidyverse)
+library(moderndive)
+```
+
+##Problem 1
+
+Load the dataset
+
+```{r}
+data("early_january_weather")
+```
+
+Look at the dataset
+
+```{r}
+early_january_weather
+```
+
+Describe the dataset
+
+```{r}
+skimr::skim(early_january_weather)
+nrow(early_january_weather)
+ncol(early_january_weather)
+mean(early_january_weather$temp)
+```
+
+Make a scatterplot
+
+```{r}
+ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) + geom_point()
+ggsave("plot_1.png")
+```
+
+From the plot, it can be seen that temperature is increasing over time. 
+
+##Problem 2
+
+```{r}
+df = 
+  tibble(
+    sample = rnorm(n = 10),
+    vec_lgc = sample > 0,
+    vec_chr = c("a", "b", "c", "d", "e", "f", "g", "h", "j", "k"),
+    vec_fcr = factor(c("m", "f", "t", "t", "t", "f", "m", "f", "m","m"))
+  )
+```
+
+```{r}
+mean(pull(df, sample))
+```
+
+```{r}
+mean(pull(df, vec_lgc))
+```
+
+```{r}
+mean(pull(df, vec_chr))
+```
+
+```{r}
+mean(pull(df, vec_fcr))
+```
+
+According to the results, we can see that r can calculate mean foor `sample` and `vec_lgc`, but it doesn't work for `vec_chr` and `vec_fcr`, because the two argumetns are not numeric or logical.
+
+```{r}
+mean(as.numeric(pull(df, vec_lgc)))
+```
+
+```{r}
+mean(as.numeric(pull(df, vec_chr)))
+```
+
+```{r}
+mean(as.numeric(pull(df, vec_fcr)))
+```
+
+The mean of characteristic vectors still cannot be calculated, but the mean of factor vectors can now be calculated, because they can be converted to numeric values.This help explain what happened when I try to take the mean, that r only calculate mean of numeric values.
