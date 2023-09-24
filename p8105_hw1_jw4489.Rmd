@@ -79,15 +79,9 @@ mean(pull(df, vec_fcr))
 
 According to the results, we can see that r can calculate mean foor `sample` and `vec_lgc`, but it doesn't work for `vec_chr` and `vec_fcr`, because the two argumetns are not numeric or logical.
 
-```{r}
+```{r, eval=FALSE}
 mean(as.numeric(pull(df, vec_lgc)))
-```
-
-```{r}
 mean(as.numeric(pull(df, vec_chr)))
-```
-
-```{r}
 mean(as.numeric(pull(df, vec_fcr)))
 ```
 
